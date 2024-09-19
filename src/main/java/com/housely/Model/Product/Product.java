@@ -1,6 +1,13 @@
-package com.housely.Model;
+package com.housely.Model.Product;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.housely.Model.Cart.CartItem;
+import com.housely.Model.Category.Category;
+import com.housely.Model.Favorite.FavoriteList;
+import com.housely.Model.Order.OrderItem;
+import com.housely.Model.Review.Review;
+import com.housely.Model.Room.Room;
+import com.housely.Model.Room.SubImageInRoom;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -12,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String productCode ;
@@ -51,5 +58,10 @@ public class Product {
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
+
+    @ManyToMany(mappedBy = "productsInSubImage")
+    private List<SubImageInRoom> subImageInRooms;
+
+
 
 }

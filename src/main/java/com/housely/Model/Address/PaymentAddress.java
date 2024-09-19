@@ -1,5 +1,7 @@
-package com.housely.Model;
+package com.housely.Model.Address;
 
+import com.housely.Model.Customer.Customer;
+import com.housely.Model.Order.CustomerOrder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PaymentAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentAddressId;
     @Column(nullable = false)
     private String firstName;
@@ -38,10 +40,10 @@ public class PaymentAddress {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fkToOrderId", referencedColumnName = "orderId")
-    private Order order;
+    private CustomerOrder customerOrder;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkToCusId", referencedColumnName = "customerId")
+    @JoinColumn(name = "fkToCusId", referencedColumnName = "id")
     private Customer customer;
 
 }

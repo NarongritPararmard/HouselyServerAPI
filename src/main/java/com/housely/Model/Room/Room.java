@@ -1,5 +1,6 @@
-package com.housely.Model;
+package com.housely.Model.Room;
 
+import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,10 +28,11 @@ public class Room {
     @ManyToMany
     @JoinTable(
             name = "productRoom",
-            joinColumns = @JoinColumn(name = "id"),
+            joinColumns = @JoinColumn(name = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "productCode"))
     private List<Product> productInRooms;
 
-
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SubImageInRoom> subImageInRooms;
 
 }

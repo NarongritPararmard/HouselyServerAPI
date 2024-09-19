@@ -1,5 +1,6 @@
-package com.housely.Model;
+package com.housely.Model.Order;
 
+import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class OrderItem {
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "order_id")
-    private Order order;
+    private CustomerOrder customerOrder;
 
     @ManyToOne
     @MapsId("productId")

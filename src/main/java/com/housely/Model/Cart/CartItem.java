@@ -1,5 +1,6 @@
-package com.housely.Model;
+package com.housely.Model.Cart;
 
+import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,13 +11,13 @@ public class CartItem {
     private CartItemKey id;
 
     @ManyToOne
-    @MapsId("product_id")
-    @JoinColumn(name = "productId")
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    @MapsId("cart_id")
-    @JoinColumn(name = "cartId")
+    @MapsId("cartId")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @Column(nullable = false)

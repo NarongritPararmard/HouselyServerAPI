@@ -1,6 +1,8 @@
-package com.housely.Model;
+package com.housely.Model.Address;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.housely.Model.Customer.Customer;
+import com.housely.Model.Shipping.Shipping;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ShippingAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shippingAddressId;
     @Column(nullable = false)
     private String country;
@@ -33,7 +35,11 @@ public class ShippingAddress {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "customerId", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
     private Customer customer;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shippingIdFK", referencedColumnName = "shippingId")
+    private Shipping shipping;
 
 }

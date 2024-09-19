@@ -1,6 +1,13 @@
-package com.housely.Model;
+package com.housely.Model.Customer;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.housely.Model.Address.PaymentAddress;
+import com.housely.Model.Address.ShippingAddress;
+import com.housely.Model.Card.CreditCard;
+import com.housely.Model.Cart.Cart;
+import com.housely.Model.Favorite.FavoriteList;
+import com.housely.Model.Order.CustomerOrder;
+import com.housely.Model.Review.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,7 +54,7 @@ public class Customer {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orders;
+    private List<CustomerOrder> customerOrders;
 
     @OneToOne(mappedBy = "customer")
     private PaymentAddress paymentAddress;

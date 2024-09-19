@@ -1,5 +1,7 @@
-package com.housely.Model;
+package com.housely.Model.Shipping;
 
+import com.housely.Model.Address.ShippingAddress;
+import com.housely.Model.Order.CustomerOrder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Shipping {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shippingId;
     @Column(nullable = false)
     private String targetFirstName;
@@ -34,5 +36,8 @@ public class Shipping {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
-    private Order order;
+    private CustomerOrder customerOrder;
+
+    @OneToOne(mappedBy = "shipping")
+    private ShippingAddress shippingAddress;
 }

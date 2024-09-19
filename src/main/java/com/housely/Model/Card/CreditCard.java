@@ -1,5 +1,7 @@
-package com.housely.Model;
+package com.housely.Model.Card;
 
+import com.housely.Model.Customer.Customer;
+import com.housely.Model.Order.CustomerOrder;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,7 +11,7 @@ import java.util.List;
 @Data
 public class CreditCard {
     @Id
-    private String creditCartNumber;
+    private String creditCardNumber;
     @Column(nullable = false)
     private String yearExp;
     @Column(nullable = false)
@@ -21,9 +23,6 @@ public class CreditCard {
     private List<Customer> customers;
 
     @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orders;
-
-
-
+    private List<CustomerOrder> customerOrders;
 
 }

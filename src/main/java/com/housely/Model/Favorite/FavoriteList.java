@@ -1,6 +1,8 @@
-package com.housely.Model;
+package com.housely.Model.Favorite;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.housely.Model.Customer.Customer;
+import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 public class FavoriteList {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long favoriteListId;
     private String favoriteListName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "customerId", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
     private Customer customer;
 
     @ManyToMany

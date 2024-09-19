@@ -1,4 +1,4 @@
-package com.housely.Model;
+package com.housely.Model.Order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -15,9 +15,9 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItemKey implements Serializable {
-    @Column(name = "cartId")
-    private Long cartId;
+public class OrderItemKey implements Serializable {
+    @Column(name = "orderId")
+    private Long orderId;
 
     @Column(name = "productId")
     private Long productId;
@@ -25,13 +25,12 @@ public class CartItemKey implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CartItemKey that = (CartItemKey) o;
-        return Objects.equals(cartId, that.cartId) && Objects.equals(productId, that.productId);
+        if (!(o instanceof OrderItemKey that)) return false;
+        return Objects.equals(orderId, that.orderId) && Objects.equals(productId, that.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, productId);
+        return Objects.hash(orderId, productId);
     }
 }

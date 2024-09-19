@@ -1,5 +1,6 @@
 package com.housely.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,37 +12,28 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentAddress {
+public class ShippingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long paymentAddressId;
-    @Column(nullable = false)
-    private String firstName;
-    @Column(nullable = false)
-    private String lastName;
-    @Column(nullable = false)
-    private String streetAlleyVillage;
+    private Long shippingAddressId;
     @Column(nullable = false)
     private String country;
     @Column(nullable = false)
-    private String city;
+    private String province;
+    @Column(nullable = false)
+    private String district;
+    @Column(nullable = false)
+    private String streetAlleyVillage;
     @Column(nullable = false)
     private String houseNumber;
-    @Column(nullable = false)
-    private String state;
     @Column(nullable = false)
     private String zip;
     @Column(nullable = false)
     private String phone;
-    @Column(nullable = false)
-    private String district;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkToOrderId", referencedColumnName = "orderId")
-    private Order order;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkToCusId", referencedColumnName = "customerId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
 }

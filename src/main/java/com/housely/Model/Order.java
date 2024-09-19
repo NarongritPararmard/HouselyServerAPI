@@ -15,16 +15,15 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long orderId;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;
-
     @Column(nullable = false)
     private String paymentStatus;
-
     @Column(nullable = false)
     private double totalAmount;
 
+
+    // Relationship
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "creditCardId", nullable = false)
@@ -32,17 +31,17 @@ public class Order {
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
-    @ManyToMany
-    @JoinTable(
-            name = "orderItem",
-            joinColumns = @JoinColumn(name = "orderId"),
-            inverseJoinColumns = @JoinColumn(name = "productCode"))
-    private List<Product> productsOrdered;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
     @OneToOne(mappedBy = "order")
     private PaymentAddress paymentAddress;
+
+    @OneToOne(mappedBy = "order")
+    private Shipping shipping;
 
 }

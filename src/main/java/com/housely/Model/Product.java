@@ -12,30 +12,25 @@ import java.util.List;
 @NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     @Column(nullable = false, unique = true)
     private String productCode ;
-
     @Column(nullable = false)
     private String brandName ;
-
     @Column(nullable = false)
     private String productName ;
-
     @Column(nullable = false)
     private double price;
-
     @Column(nullable = false)
     private int quantity ;
-
     @Column(nullable = false)
     private String imageBase64;
-
     @Column(nullable = false)
     private String description;
 
+
+    // Relationship
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews;
@@ -49,7 +44,12 @@ public class Product {
     @ManyToMany(mappedBy = "productInFavoriteList")
     private List<FavoriteList> favoriteLists;
 
-    @ManyToMany(mappedBy = "productsOrdered")
-    private List<Order> orders;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CartItem> cartItems;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
 }

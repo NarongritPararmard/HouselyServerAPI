@@ -31,4 +31,6 @@ public class Room {
             inverseJoinColumns = @JoinColumn(name = "productCode"))
     private List<Product> productInRooms;
 
+
+
 }

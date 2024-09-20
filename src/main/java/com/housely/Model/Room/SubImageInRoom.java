@@ -12,7 +12,8 @@ import java.util.List;
 public class SubImageInRoom {
     @Id
     private String subImageId;
-    @Column(nullable = false)
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String subImageBase64;
 
 

@@ -19,12 +19,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
-
     private String categoryName;
-    private String description;
-    private String imageBase64;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "productCategory",
             joinColumns = @JoinColumn(name = "categoryId"),

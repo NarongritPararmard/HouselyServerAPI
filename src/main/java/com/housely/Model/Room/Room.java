@@ -19,9 +19,11 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
-    @Column(nullable = false)
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String imageBase64;
     @Column(nullable = false)
     private String roomName;

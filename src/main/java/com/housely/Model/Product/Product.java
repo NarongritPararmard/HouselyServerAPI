@@ -20,17 +20,18 @@ import java.util.List;
 public class Product {
     @Id
     private String productCode ;
-    @Column(nullable = false)
     private String brandName ;
-    @Column(nullable = false)
     private String productName ;
-    @Column(nullable = false)
-    private double price;
-    @Column(nullable = false)
-    private int quantity ;
-    @Column(nullable = false)
+    private String price;
+    @Column(nullable = true)
+    private String color;
+    private String size;
+    private int quantity;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String imageBase64;
-    @Column(nullable = false)
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
 
 

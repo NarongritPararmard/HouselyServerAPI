@@ -19,19 +19,19 @@ public class CartItemKey implements Serializable {
     @Column(name = "cartId")
     private Long cartId;
 
-    @Column(name = "productId")
-    private Long productId;
+    @Column(name = "productCode")
+    private String productCode;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartItemKey that = (CartItemKey) o;
-        return Objects.equals(cartId, that.cartId) && Objects.equals(productId, that.productId);
+        return Objects.equals(cartId, that.cartId) && Objects.equals(productCode, that.productCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, productId);
+        return Objects.hash(cartId, productCode);
     }
 }

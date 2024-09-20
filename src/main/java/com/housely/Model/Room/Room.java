@@ -1,5 +1,6 @@
 package com.housely.Model.Room;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,8 @@ public class Room {
     @Column(nullable = false)
     private String roomName;
 
+
+    // Relationship with Product
     @ManyToMany
     @JoinTable(
             name = "productRoom",
@@ -32,6 +35,8 @@ public class Room {
             inverseJoinColumns = @JoinColumn(name = "productCode"))
     private List<Product> productInRooms;
 
+    // Relationship with SubImageInRoom
+    @JsonManagedReference
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SubImageInRoom> subImageInRooms;
 

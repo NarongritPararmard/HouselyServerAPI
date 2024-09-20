@@ -1,5 +1,6 @@
 package com.housely.Model.Card;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.housely.Model.Customer.Customer;
 import com.housely.Model.Order.CustomerOrder;
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class CreditCard {
     @ManyToMany(mappedBy = "creditCards")
     private List<Customer> customers;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> customerOrders;
 

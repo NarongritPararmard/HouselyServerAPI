@@ -1,5 +1,6 @@
 package com.housely.Model.Cart;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.housely.Model.Customer.Customer;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Cart {
     @JoinColumn(name = "fkToCusId", referencedColumnName = "id")
     private Customer customer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartItem> cartItems;
 

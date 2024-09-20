@@ -19,22 +19,29 @@ public class ShippingAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shippingAddressId;
     @Column(nullable = false)
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
+    @Column(nullable = false)
     private String country;
     @Column(nullable = false)
     private String province;
     @Column(nullable = false)
     private String district;
     @Column(nullable = false)
-    private String streetAlleyVillage;
+    private String subDistrict;
     @Column(nullable = false)
     private String houseNumber;
+    private String streetAlleyVillage;
     @Column(nullable = false)
-    private String zip;
+    private String zipCode;
     @Column(nullable = false)
-    private String phone;
+    private String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    // Relationship
     @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private Customer customer;
 

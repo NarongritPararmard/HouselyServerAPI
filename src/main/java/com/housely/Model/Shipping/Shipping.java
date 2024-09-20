@@ -34,10 +34,13 @@ public class Shipping {
     @Column(nullable = false)
     private String trackingNumber;
 
+
+    // Relationship with CustomerOrder
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
     private CustomerOrder customerOrder;
 
+    // Relationship with ShippingAddress
     @OneToOne(mappedBy = "shipping")
     private ShippingAddress shippingAddress;
 }

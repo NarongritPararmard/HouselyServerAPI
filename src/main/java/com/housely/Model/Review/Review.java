@@ -28,15 +28,17 @@ public class Review {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateReview;
 
-    // Relationship
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    // Relationship with Customer
     @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // Relationship with Product
     @JsonBackReference
-    @JoinColumn(name = "productId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productCode", nullable = false)
     private Product product;
 
 }

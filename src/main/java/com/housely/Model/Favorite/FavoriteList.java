@@ -22,11 +22,14 @@ public class FavoriteList {
     private Long favoriteListId;
     private String favoriteListName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    // Relationship with Customer
     @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private Customer customer;
 
+    // Relationship with Product
     @ManyToMany
     @JoinTable(
             name = "favoriteListItem",

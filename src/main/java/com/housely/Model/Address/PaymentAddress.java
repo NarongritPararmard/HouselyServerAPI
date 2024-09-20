@@ -22,21 +22,21 @@ public class PaymentAddress {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
-    private String streetAlleyVillage;
-    @Column(nullable = false)
     private String country;
     @Column(nullable = false)
-    private String city;
-    @Column(nullable = false)
-    private String houseNumber;
-    @Column(nullable = false)
-    private String state;
-    @Column(nullable = false)
-    private String zip;
-    @Column(nullable = false)
-    private String phone;
+    private String province;
     @Column(nullable = false)
     private String district;
+    @Column(nullable = false)
+    private String subDistrict;
+    @Column(nullable = false)
+    private String houseNumber;
+    private String streetAlleyVillage;
+    @Column(nullable = false)
+    private String zipCode;
+    @Column(nullable = false)
+    private String phoneNumber;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fkToOrderId", referencedColumnName = "orderId")

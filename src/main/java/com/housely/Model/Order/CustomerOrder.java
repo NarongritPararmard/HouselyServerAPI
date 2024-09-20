@@ -27,24 +27,28 @@ public class CustomerOrder {
     private double totalAmount;
 
 
-    // Relationship
-    @ManyToOne(fetch = FetchType.LAZY)
+    // Relationship with CreditCard
     @JsonBackReference
-    @JoinColumn(name = "creditCardId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creditCardNumber", nullable = false)
     private CreditCard creditCard;
 
-    @JsonManagedReference
+    // Relationship with Customer
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private Customer customer;
 
+    // Relationship with OrderItem
     @JsonManagedReference
     @OneToMany(mappedBy = "customerOrder",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
+    // Relationship with PaymentAddress
     @OneToOne(mappedBy = "customerOrder")
     private PaymentAddress paymentAddress;
 
+    // Relationship with Shipping
     @OneToOne(mappedBy = "customerOrder")
     private Shipping shipping;
 

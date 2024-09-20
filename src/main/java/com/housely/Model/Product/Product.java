@@ -19,9 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false, unique = true)
     private String productCode ;
     @Column(nullable = false)
     private String brandName ;
@@ -37,31 +34,35 @@ public class Product {
     private String description;
 
 
-    // Relationship
+    // Relationship with Review
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews;
 
+    // Relationship with Room
     @ManyToMany(mappedBy = "productInRooms")
     private List<Room> rooms;
 
+    // Relationship with Category
     @ManyToMany(mappedBy = "productInCategories")
     private List<Category> categories;
 
+    // Relationship with FavoriteList
     @ManyToMany(mappedBy = "productInFavoriteList")
     private List<FavoriteList> favoriteLists;
 
+    // Relationship with CartItem
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartItem> cartItems;
 
+    // Relationship with OrderItem
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
+    // Relationship with SubImageInRoom
     @ManyToMany(mappedBy = "productsInSubImage")
     private List<SubImageInRoom> subImageInRooms;
-
-
 
 }

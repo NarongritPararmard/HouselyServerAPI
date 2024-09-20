@@ -19,18 +19,18 @@ public class OrderItemKey implements Serializable {
     @Column(name = "orderId")
     private Long orderId;
 
-    @Column(name = "productId")
-    private Long productId;
+    @Column(name = "productCode")
+    private String productCode;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrderItemKey that)) return false;
-        return Objects.equals(orderId, that.orderId) && Objects.equals(productId, that.productId);
+        return Objects.equals(orderId, that.orderId) && Objects.equals(productCode, that.productCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, productId);
+        return Objects.hash(orderId, productCode);
     }
 }

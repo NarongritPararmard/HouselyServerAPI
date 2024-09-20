@@ -1,6 +1,7 @@
 package com.housely.Service;
 
 import com.housely.Model.Cart.CartItem;
+import com.housely.Model.Cart.CartItemKey;
 import com.housely.Repository.CartItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,11 @@ public class CartItemService{
         return cartItemRepository.save(cartItem);
     }
 
-    public CartItem findById(Long id){
+    public CartItem findById(CartItemKey id){
         return cartItemRepository.findById(id).orElse(null);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(CartItemKey id){
         cartItemRepository.deleteById(id);
     }
 

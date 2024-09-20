@@ -1,11 +1,7 @@
 package com.housely.Controller.CreditCardController;
 
 import com.housely.Model.Card.CreditCard;
-<<<<<<< Updated upstream
 import com.housely.Service.CreditCardService;
-=======
-import com.housely.Serevice.CreditCardService;
->>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -2,6 +2,7 @@ package com.housely.Controller;
 
 import com.housely.Model.Cart.Cart;
 import com.housely.Model.Cart.CartItem;
+import com.housely.Model.Cart.CartItemKey;
 import com.housely.Model.Customer.Customer;
 import com.housely.Model.Order.CustomerOrder;
 import com.housely.Service.CartItemService;
@@ -19,8 +20,6 @@ public class CartController {
     private final CartService cartService;
     private final CustomerService  customerService;
     private final CartItemService cartItemService;
-    @Autowired
-    private CustomerOrderService customerOrderService;
 
     public CartController(CartService cartService, CartItemService cartItemService, CustomerService customerService) {
         this.cartService = cartService;
@@ -32,18 +31,18 @@ public class CartController {
     @GetMapping("/customer/{id}/cart/{cartId}")
     public @ResponseBody Cart getCartByCustomerId(@PathVariable Long id, @PathVariable Long cartId) {
         Customer customer = customerService.findById(id);
-        customer.setCart(cartService.findById(cartId));
-        return customer.getCart();
+        Cart cart = cartService.findById(cartId);
+        cart.setCustomer(customer);
+        return cart;
     }
 
     @GetMapping("/customer/{id}/cart/{cartId}/cart-item")
     public @ResponseBody List<CartItem> getCartItemByCartId(@PathVariable Long id, @PathVariable Long cartId) {
         Customer customer = customerService.findById(id);
-        customer.setCart(cartService.findById(cartId));
-        return customer.getCart().getCartItems();
+        Cart cart = cartService.findById(cartId);
+        cart.setCustomer(customer);
+        return cart.getCartItems();
     }
-
-
 
     @PostMapping("/customer/{id}/cart")
     public @ResponseBody Cart addCart(@RequestBody Cart cart, @PathVariable Long id) {
@@ -52,12 +51,31 @@ public class CartController {
         return cartService.save(cart);
     }
 
+    @PostMapping("/customer/{id}/cart/{cartId}/cart-item")
+    public @ResponseBody CartItem addCartItem(@RequestBody CartItem cartItem, @PathVariable Long id, @PathVariable Long cartId) {
+        Customer customer = customerService.findById(id);
+        Cart cart = cartService.findById(cartId);
+        cart.setCustomer(customer);
+        cartItem.setCart(cart);
+        return cartItemService.save(cartItem);
+    }
+
     @PutMapping("/customer/{id}/cart/{cartId}")
     public @ResponseBody Cart updateCart(@RequestBody Cart cart, @PathVariable Long id, @PathVariable Long cartId) {
         Customer customer = customerService.findById(id);
         cart.setCartId(cartId);
         cart.setCustomer(customer);
         return cartService.save(cart);
+    }
+
+    @PutMapping("/customer/{id}/cart/{cartId}/cart-item/{cartItemId}")
+    public @ResponseBody CartItem updateCartItem(@RequestBody CartItem cartItem, @PathVariable Long id, @PathVariable Long cartId, @PathVariable CartItemKey cartItemId) {
+        Customer customer = customerService.findById(id);
+        Cart cart = cartService.findById(cartId);
+        cart.setCustomer(customer);
+        cartItem.setId(cartItemId);
+        cartItem.setCart(cart);
+        return cartItemService.save(cartItem);
     }
 
     @DeleteMapping("/customer/{id}/cart/{cartId}")
@@ -70,12 +88,15 @@ public class CartController {
         return String.format("Cart Id:%d was delete successfully!", cartId);
     }
 
-    @GetMapping("/customer/{id}")
-    public @ResponseBody CustomerOrder test(@PathVariable Long id) {
+    @DeleteMapping("/customer/{id}/cart/{cartId}/cart-item/{cartItemId}")
+    public @ResponseBody String deleteCartItem(@PathVariable Long id, @PathVariable Long cartId, @PathVariable CartItemKey cartItemId) {
         Customer customer = customerService.findById(id);
-        return customer.getCustomerOrders().getFirst();
+        Cart cart = cartService.findById(cartId);
+        CartItem cartItem = cartItemService.findById(cartItemId);
+        if (cartItem != null && cartItem.getCart().equals(cart) && cart.getCustomer().equals(customer)) {
+            cartItemService.deleteById(cartItemId);
+        }
+        return "Cart Item Id:"+cartItemId.hashCode()+ " was delete successfully!";
     }
-
-
 
 }

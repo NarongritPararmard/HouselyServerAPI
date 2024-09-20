@@ -2,12 +2,10 @@ package com.housely.Controller;
 
 import com.housely.Model.Cart.Cart;
 import com.housely.Model.Customer.Customer;
-import com.housely.Serevice.CartItemService;
-import com.housely.Serevice.CartService;
-import com.housely.Serevice.CustomerService;
+import com.housely.Service.CartItemService;
+import com.housely.Service.CartService;
+import com.housely.Service.CustomerService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")

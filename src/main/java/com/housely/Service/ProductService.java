@@ -1,4 +1,4 @@
-package com.housely.Serevice;
+package com.housely.Service;
 
 import com.housely.Model.Product.Product;
 import com.housely.Repository.ProductRepository;

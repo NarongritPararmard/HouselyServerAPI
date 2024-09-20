@@ -2,8 +2,8 @@ package com.housely.Controller.AddressController;
 
 import com.housely.Model.Address.PaymentAddress;
 import com.housely.Model.Address.ShippingAddress;
-import com.housely.Serevice.PaymentAddressService;
-import com.housely.Serevice.ShippingAddressService;
+import com.housely.Service.PaymentAddressService;
+import com.housely.Service.ShippingAddressService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

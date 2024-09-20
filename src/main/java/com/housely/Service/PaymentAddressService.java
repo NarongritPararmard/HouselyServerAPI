@@ -1,8 +1,7 @@
-package com.housely.Serevice;
+package com.housely.Service;
 
 import com.housely.Model.Address.PaymentAddress;
 import com.housely.Repository.PaymentAddressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

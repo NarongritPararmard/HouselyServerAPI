@@ -1,8 +1,7 @@
 package com.housely.Controller.CreditCardController;
 
 import com.housely.Model.Card.CreditCard;
-import com.housely.Serevice.CreditCardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.housely.Service.CreditCardService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,8 +1,7 @@
-package com.housely.Serevice;
+package com.housely.Service;
 
 import com.housely.Model.Category.Category;
 import com.housely.Repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

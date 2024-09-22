@@ -23,7 +23,7 @@ public class ProductService {
     }
 
     public Product findById(String id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
     public void deleteById(String id) {

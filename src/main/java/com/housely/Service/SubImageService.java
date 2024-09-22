@@ -23,7 +23,7 @@ public class SubImageService {
     }
 
     public SubImageInRoom findById(Long id) {
-        return subImageRepository.findById(id).orElse(null);
+        return subImageRepository.findById(id).orElseThrow(() -> new RuntimeException("SubImage not found"));
     }
 
     public void deleteById(Long id) {

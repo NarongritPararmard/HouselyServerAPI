@@ -23,7 +23,7 @@ public class ShippingAddressService {
     }
 
     public ShippingAddress findById(Long id) {
-        return shippingAddressRepository.findById(id).orElse(null);
+        return shippingAddressRepository.findById(id).orElseThrow(() -> new RuntimeException("ShippingAddress not found"));
     }
 
     public void deleteById(Long id) {

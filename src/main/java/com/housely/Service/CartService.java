@@ -24,7 +24,7 @@ public class CartService {
     }
 
     public Cart findById(Long id){
-        return cartRepository.findById(id).orElse(null);
+        return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart not found"));
     }
 
     public void deleteById(Long id){

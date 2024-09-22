@@ -1,5 +1,6 @@
 package com.housely.Model.Category;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.housely.Model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,11 +22,12 @@ public class Category {
     private Long categoryId;
     private String categoryName;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "productCategory",
             joinColumns = @JoinColumn(name = "categoryId"),
             inverseJoinColumns = @JoinColumn(name = "productCode"))
+    @JsonManagedReference
     private List<Product> productInCategories;
 
 }

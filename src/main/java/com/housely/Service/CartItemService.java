@@ -25,7 +25,7 @@ public class CartItemService{
     }
 
     public CartItem findById(CartItemKey id){
-        return cartItemRepository.findById(id).orElse(null);
+        return cartItemRepository.findById(id).orElseThrow(() -> new RuntimeException("CartItem not found"));
     }
 
     public void deleteById(CartItemKey id){

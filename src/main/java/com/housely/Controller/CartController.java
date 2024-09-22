@@ -96,7 +96,7 @@ public class CartController {
         if (cartItem != null && cartItem.getCart().equals(cart) && cart.getCustomer().equals(customer)) {
             cartItemService.deleteById(cartItemId);
         }
-        return "Cart Item Id:"+cartItemId.hashCode()+ " was delete successfully!";
+        return "Cart Item Id:"+cartItemId+ " was delete successfully!";
     }
 
 }

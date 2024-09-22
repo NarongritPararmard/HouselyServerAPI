@@ -1,7 +1,9 @@
 package com.housely.Service;
 
+import com.housely.Exception.FavoriteListException.FavoriteListException;
 import com.housely.Model.Favorite.FavoriteList;
 import com.housely.Repository.FavoriteListRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +25,23 @@ public class FavoriteListService {
     }
 
     public FavoriteList findById(Long id) {
-        return favoriteListRepository.findById(id).orElse(null);
+        return favoriteListRepository.findById(id)
+                .orElseThrow(
+                        () -> new FavoriteListException("FavoriteList with ID:"
+                                + id
+                                + " not found"));
     }
 
     public void deleteById(Long id) {
         favoriteListRepository.deleteById(id);
     }
+
+    public FavoriteList findFavoriteInCustomerList(Long favoriteListId, Long cusId) {
+        return favoriteListRepository.findFavoriteInCustomerList(favoriteListId, cusId)
+                .orElseThrow(
+                        () -> new FavoriteListException("FavoriteList with ID:"
+                                + favoriteListId
+                                + " not found in the customer's collection"));
+    }
+
 }

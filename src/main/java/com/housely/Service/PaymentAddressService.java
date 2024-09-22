@@ -23,7 +23,7 @@ public class PaymentAddressService {
     }
 
     public PaymentAddress findById(Long id) {
-        return paymentAddressRepository.findById(id).orElse(null);
+        return paymentAddressRepository.findById(id).orElseThrow(() -> new RuntimeException("PaymentAddress not found"));
     }
 
     public void deleteById(Long id) {

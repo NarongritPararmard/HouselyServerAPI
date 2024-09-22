@@ -1,6 +1,7 @@
 package com.housely.Service;
 
 import com.housely.Model.Customer.Customer;
+import com.housely.Model.Favorite.FavoriteList;
 import com.housely.Repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,14 @@ public class CustomerService {
     }
 
     public Customer findById(Long id){
-        return customerRepository.findById(id).orElse(null);
+        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 
     public void deleteById(Long id){
         customerRepository.deleteById(id);
     }
+
+//    public List<FavoriteList> findFavoritesByCustomerId(Long customerId){
+//        return customerRepository.findFavoritesByCustomerId(customerId).orElse(null);
+//    }
 }

@@ -24,7 +24,7 @@ public class CreditCardService {
     }
 
     public CreditCard findByCreditCardNumber(String creditCardNumber){
-        return creditCardRepository.findByCreditCardNumber(creditCardNumber).orElse(null);
+        return creditCardRepository.findByCreditCardNumber(creditCardNumber).orElseThrow(() -> new RuntimeException("CreditCard not found"));
     }
 
     public void deleteByCreditCardNumber(String creditCardNumber){

@@ -13,7 +13,7 @@ public class SubImageInRoom {
     @Id
     private String subImageId;
     @Lob
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String subImageBase64;
 
 

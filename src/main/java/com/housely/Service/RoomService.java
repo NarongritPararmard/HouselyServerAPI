@@ -23,7 +23,7 @@ public class RoomService {
     }
 
     public Room findById(Long id) {
-        return roomRepository.findById(id).orElse(null);
+        return roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
     }
 
     public void deleteById(Long id) {

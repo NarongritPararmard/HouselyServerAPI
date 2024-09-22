@@ -1,5 +1,6 @@
 package com.housely.Model.Product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.housely.Model.Cart.CartItem;
 import com.housely.Model.Category.Category;
@@ -46,6 +47,7 @@ public class Product {
 
     // Relationship with Category
     @ManyToMany(mappedBy = "productInCategories")
+    @JsonBackReference
     private List<Category> categories;
 
     // Relationship with FavoriteList

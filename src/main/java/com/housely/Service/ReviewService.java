@@ -23,7 +23,7 @@ public class ReviewService {
     }
 
     public Review findById(Long id) {
-        return reviewRepository.findById(id).orElse(null);
+        return reviewRepository.findById(id).orElseThrow(() -> new RuntimeException("Review not found"));
     }
 
     public void deleteById(Long id) {

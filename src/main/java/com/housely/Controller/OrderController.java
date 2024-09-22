@@ -74,7 +74,78 @@ public class OrderController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/customer/{cusId}/customer-orders")
+    public ResponseEntity<?> createOrder(@PathVariable Long cusId, @RequestBody CustomerOrder customerOrder) {
+        try{
+            Customer customer = customerService.findById(cusId);
+            customerOrder.setCustomer(customer);
+            return new ResponseEntity<>(customerOrderService.save(customerOrder), HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/customer/{cusId}/customer-orders/{orderId}/order-items")
+    public ResponseEntity<?> createOrderItem(@PathVariable Long cusId, @PathVariable Long orderId, @RequestBody OrderItem orderItem) {
+        try{
+            customerService.findById(cusId);
+            CustomerOrder customerOrder = customerOrderService.findCustomerOrderByCustomerAndOrderId(cusId, orderId);
+            orderItem.setCustomerOrder(customerOrder);
+            return new ResponseEntity<>(orderItemService.save(orderItem), HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/customer/{cusId}/customer-orders/{orderId}")
+    public ResponseEntity<?> updateOrder(@PathVariable Long cusId, @PathVariable Long orderId, @RequestBody CustomerOrder customerOrder) {
+        try{
+            customerOrder.setCustomer(customerService.findById(cusId));
+            customerOrder.setOrderId(customerOrderService.findById(orderId).getOrderId());
+            return new ResponseEntity<>(customerOrderService.save(customerOrder), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/customer/{cusId}/customer-orders/{orderId}/order-items/{itemId}")
+    public ResponseEntity<?> updateOrderItem(@PathVariable Long cusId, @PathVariable Long orderId, @PathVariable OrderItemKey itemId, @RequestBody OrderItem orderItem) {
+        try{
+            customerService.findById(cusId);
+            orderItem.setCustomerOrder(customerOrderService.findCustomerOrderByCustomerAndOrderId(cusId, orderId));
+            orderItem.setOrderItemId(itemId);
+            return new ResponseEntity<>(orderItemService.save(orderItem), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/customer/{cusId}/customer-orders/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long cusId, @PathVariable Long orderId) {
+        try{
+            customerService.findById(cusId);
+            customerOrderService.deleteById(orderId);
+            return new ResponseEntity<>("Order deleted successfully", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/customer/{cusId}/customer-orders/{orderId}/order-items/{itemId}")
+    public ResponseEntity<?> deleteOrderItem(@PathVariable Long cusId, @PathVariable Long orderId, @PathVariable OrderItemKey itemId) {
+        try{
+            customerService.findById(cusId);
+            customerOrderService.findById(orderId);
+            orderItemService.findById(itemId);
+            orderItemService.deleteById(itemId);
+            return new ResponseEntity<>("Order item deleted successfully", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
 
     @GetMapping("/customer-orders/all")
     public ResponseEntity<?> getAllOrders() {
@@ -94,10 +165,21 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/customer-orders/{orderId}/order-items/{itemId}")
+    @GetMapping("/customer-orders/{orderId}/order-items")
     public ResponseEntity<?> getOrderItems(@PathVariable Long orderId) {
         try{
-            return new ResponseEntity<>(customerOrderService.findById(orderId).getOrderItems(), HttpStatus.OK);
+            customerOrderService.findById(orderId);
+            return new ResponseEntity<>(orderItemService.findByOrderId(orderId), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/customer-orders/{orderId}/order-items/{itemId}")
+    public ResponseEntity<?> getOrderItemById(@PathVariable Long orderId, @PathVariable OrderItemKey itemId) {
+        try{
+            customerOrderService.findById(orderId);
+            return new ResponseEntity<>(orderItemService.findById(itemId), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

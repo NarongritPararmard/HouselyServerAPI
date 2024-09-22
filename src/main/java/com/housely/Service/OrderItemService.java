@@ -23,8 +23,10 @@ public class OrderItemService {
         return orderItemRepository.save(orderItem);
     }
 
-    public OrderItem findById(Long id) {
-        return orderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("OrderItem not found"));
+    public OrderItem findById(OrderItemKey id) {
+        return orderItemRepository.findById(id)
+                .orElseThrow(
+                        () -> new RuntimeException("OrderItem not found"));
     }
 
     public OrderItem findByCustomerAndOrder(Long cusId, Long orderId, OrderItemKey itemId) {
@@ -37,7 +39,11 @@ public class OrderItemService {
         return orderItemRepository.findOrderItemsByCustomerAndOrder(cusId, orderId);
     }
 
-    public void deleteById(Long id) {
+    public List<OrderItem> findByOrderId(Long orderId) {
+        return orderItemRepository.findOrderItemsByOrderId(orderId);
+    }
+
+    public void deleteById(OrderItemKey id) {
         orderItemRepository.deleteById(id);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemKey> {
     @Query("SELECT oi FROM OrderItem oi " +
             "JOIN oi.customerOrder co " +
             "JOIN co.customer c " +
@@ -24,4 +24,11 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
             "WHERE c.id = :cusId AND co.orderId = :orderId")
     List<OrderItem> findOrderItemsByCustomerAndOrder(@Param("cusId") Long cusId,
                                                      @Param("orderId") Long orderId);
+
+    @Query("SELECT oi FROM OrderItem oi " +
+            "JOIN oi.customerOrder co " +
+            "WHERE co.orderId = :orderId")
+    List<OrderItem> findOrderItemsByOrderId(@Param("orderId") Long orderId);
+
+
 }
